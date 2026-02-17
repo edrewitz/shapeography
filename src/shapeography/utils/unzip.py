@@ -9,7 +9,8 @@ import gzip as _gzip
 
 from zipfile import ZipFile as _ZipFile
     
-def extract_gzipped_files(file_directory):
+def extract_gzipped_files(file_directory,
+                          file_extention='.shp'):
     
     """
     This function extracts shapefiles that are zipped in a .gz file
@@ -18,7 +19,14 @@ def extract_gzipped_files(file_directory):
     
     1) file_directory (String) - The path of the directory to the initial .gz file. 
     
-    Optional Arguments: None
+    Optional Arguments: 
+    
+    1) file_extention (String) - Default='.shp'. .shp is the standard file extention for a shapefile. 
+
+        Other Common Cartographic File Extentions
+        -----------------------------------------
+        
+        .geojson - GEOJSON
     
     Returns
     -------
@@ -35,14 +43,24 @@ def extract_gzipped_files(file_directory):
     except Exception as e:
         pass
     
-    try:
-        for f in _os.listdir(f"{file_directory}/{extraction_folder}"):
-            ex_folder = f.split('.', 1)[0]
-            with _gzip.open(f"{file_directory}/{extraction_folder}/{f}", 'rb') as f_in:
-                with open(f"{file_directory}/{extraction_folder}/{ex_folder}", 'wb') as f_out:
-                    f_out.write(f_in.read()) 
-    except Exception as e:
-        pass     
+    if file_extention is not None:
+        try:
+            for f in _os.listdir(f"{file_directory}/{extraction_folder}"):
+                ex_folder = f.split('.', 1)[0]
+                with _gzip.open(f"{file_directory}/{extraction_folder}/{f}", 'rb') as f_in:
+                    with open(f"{file_directory}/{extraction_folder}/{ex_folder}{file_extention}", 'wb') as f_out:
+                        f_out.write(f_in.read()) 
+        except Exception as e:
+            pass     
+    else:
+        try:
+            for f in _os.listdir(f"{file_directory}/{extraction_folder}"):
+                ex_folder = f.split('.', 1)[0]
+                with _gzip.open(f"{file_directory}/{extraction_folder}/{f}", 'rb') as f_in:
+                    with open(f"{file_directory}/{extraction_folder}/{ex_folder}", 'wb') as f_out:
+                        f_out.write(f_in.read()) 
+        except Exception as e:
+            pass            
     
     try:    
         for f in _os.listdir(f"{file_directory}"):
@@ -58,7 +76,7 @@ def extract_gzipped_files(file_directory):
     except Exception as e:
         pass     
     
-def extract_files(file_directory):
+def extract_zipped_files(file_directory):
 
     """
     This function extracts shapefiles that are zipped in a .zip file
