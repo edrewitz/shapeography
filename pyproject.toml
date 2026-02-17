@@ -1,26 +1,30 @@
-[build-system]
-requires = ["setuptools>=64"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "shapeography"
 version = "0.1"
-authors = [
-  { name="Eric J Drewitz"},
-]
-description = "A Client that manages shapefiles and geojsons"
+description = "A Python library that both a client that downloads various shapefiles and GEOJSON files from the web and processes these geometry files. Users can also process locally hosted shapefiles and GEOJSON files. Also works for those on VPN/PROXY connections."
 readme = "README.md"
-keywords = ["geography", "cartography"]
 requires-python = ">=3.10"
+license-files = ["LICENSE*"]
+authors = [
+    { name = "Eric J. Drewitz" },
+]
+keywords = ["cartography", "geography"]
 classifiers = [
     "Programming Language :: Python",
     "Topic :: Scientific/Engineering",
-    "Topic :: Scientific/Engineering :: Geography",
+    "Topic :: Scientific/Engineering :: Georgraphy",
     "Operating System :: OS Independent",
-    "License :: OSI Approved :: MIT License",
 ]
+
 dependencies = [
 	"cartopy>=0.24.0",
     "geopandas>=1.1.0",
     "requests>=2.32.4"
 ]
+
+[build-system]
+requires = ["setuptools>=64.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]  # Look for packages in the src directory
