@@ -1,5 +1,5 @@
 """
-This file hosts the client that retrieves the shapefile/geojson from the web.
+This file hosts the client that retrieves the shapefile/geojson from the web and manages these files locally. 
 
 (C) Eric J. Drewitz 2026
 """
@@ -19,7 +19,7 @@ def get_shapefiles(url,
              refresh=True):
     
     """
-    This function is the client that retrieves gridded weather/climate data (GRIB2 and NETCDF) files. 
+    This function is the client that downloads and locally manages shapefiles and GEOJSON files. 
     This client supports VPN/PROXY connections. 
     
     Required Arguments:
@@ -43,9 +43,9 @@ def get_shapefiles(url,
     
     3) notifications (String) - Default='on'. Notification when a file is downloaded and saved to {path}
     
-    4) clear_recycle_bin (Boolean) - (Default=False in WxData >= 1.2.5) (Default=True in WxData < 1.2.5). When set to True, 
-        the contents in your recycle/trash bin will be deleted with each run of the program you are calling WxData. 
-        This setting is to help preserve memory on the machine. 
+    4) refresh (Boolean) - Default=True. When set to True, the branch that hosts the shapefiles/GEOJSON files is completely
+       cleaned out and a new set of shapefiles/GEOJSON is downloaded with each run. This is recommended for those using 
+       shapeography in automated tasks to account for periodic shapefile/GEOJSON updates on the servers that host the shapefiles/GEOJSONs.
     
     Returns
     -------
