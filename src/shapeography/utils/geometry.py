@@ -8,6 +8,57 @@ import cartopy.crs as _ccrs
 import cartopy.io.shapereader as _shapereader
 import cartopy.feature as _cfeature
 
+from fastkml import(
+    KML as _KML, 
+    geometry as _kml_geometry
+)
+from fastkml.utils import find_all as _find_all
+
+
+def get_kml_geometry(file_path):
+    
+    """
+    This function returns the geometry of a KML file.
+    
+    Required Arguments:
+    
+    1) file_path (String) - The path to the KML file
+    
+    Returns
+    -------
+    
+    The geometry of the KML file    
+    """
+
+    # Open and read the KML file content
+    with open(file_path, 'r', encoding='utf-8') as f:
+        doc = f.read().encode('utf-8')
+
+    # Create a KML object and parse the document string
+    k = _KML()
+    k.from_string(doc)
+
+    # Recursively find all Placemarks in the KML document
+    placemarks = list(_find_all(k, of_type=_KML.Placemark))
+
+    # Iterate through placemarks and print their geometry
+    for p in placemarks:
+        print(f"Placemark Name: {p.name}")
+        if p.geometry:
+            print(f"Geometry Type: {type(p.geometry).__name__}")
+            # The coordinates can be accessed differently depending on the geometry type
+            if isinstance(p.geometry, _kml_geometry.Point):
+                print(f"Coordinates: {p._kml_geometry.coords}")
+            elif isinstance(p.geometry, _kml_geometry.LineString):
+                print(f"Coordinates: {list(p.geometry.coords)}")
+            elif isinstance(p.geometry, _kml_geometry.Polygon):
+                # Coordinates are in the exterior ring for a simple polygon
+                print(f"Coordinates: {list(p.geometry.exterior.coords)}")
+        else:
+            print("No geometry found for this placemark")
+
+
+
 def get_geojson_geometry(file_path):
     
     """
