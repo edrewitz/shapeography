@@ -1,5 +1,5 @@
 """
-This file hosts the client that retrieves the shapefile from the web.
+This file hosts the client that retrieves the shapefile/geojson from the web.
 
 (C) Eric J. Drewitz 2026
 """
