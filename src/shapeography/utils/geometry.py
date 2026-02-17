@@ -17,7 +17,7 @@ def _parse_kml_features(element):
     """Recursively yields features from KML elements (Document, Folder, Placemark)"""
     if not hasattr(element, 'features'):
         return
-    for feature in element.features():
+    for feature in element:
         if isinstance(feature, _kml.Placemark):
             yield feature
         else:
