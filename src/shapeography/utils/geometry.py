@@ -13,6 +13,18 @@ from fastkml import(
 )
 from fastkml.utils import find_all as _find_all
 
+def _parse_kml_features(element):
+    """Recursively yields features from KML elements (Document, Folder, Placemark)"""
+    if not hasattr(element, 'features'):
+        return
+    for feature in element.features():
+        if isinstance(feature, _kml.Placemark):
+            yield feature
+        else:
+            yield from _parse_kml_features(feature)
+            
+            
+
 
 def get_kml_geometry(file_path):
     
@@ -30,34 +42,15 @@ def get_kml_geometry(file_path):
     """
 
 
-    with open(file_path, 'r', encoding='utf-8') as f:
-        doc = f.read().encode('utf-8')
+    with open(file_path, 'rb') as f:
+        k = _kml.KML()
+        k.from_string(f.read())
 
-    k = _kml.KML()
-    k.from_string(doc)
-
-    # Iterate through features (Document, Folder, Placemark, etc.)
-    for feature in k.features():
-        if isinstance(feature, _kml.Document):
-            for sub_feature in feature.features():
-                for placemark in sub_feature.features():
-                    if placemark.geometry:
-                        print(f"Geometry type: {type(placemark.geometry).__name__}")
-                        # You can access the coordinates, e.g., for a Point
-                        if hasattr(placemark.geometry, 'coords'):
-                            print(f"Coordinates: {list(placemark.geometry.coords)}")
-                        # For Polygon geometries, you can access the exterior coordinates
-                        elif hasattr(placemark.geometry, 'exterior'):
-                            print(f"Coordinates: {list(placemark.geometry.exterior.coords)}")
-
-        # Handle cases where placemarks are directly under the KML root or other features
-        elif isinstance(feature, _kml.Placemark):
-            if feature.geometry:
-                print(f"Geometry type: {type(feature.geometry).__name__}")
-                if hasattr(feature.geometry, 'coords'):
-                    print(f"Coordinates: {list(feature.geometry.coords)}")
-
-
+    for placemark in _parse_kml_features(k):
+        print(f"* Name: {placemark.name}")
+        if placemark.geometry:
+            print(f"  Geometry Type: {placemark.geometry.geom_type}")
+            print(f"  Coordinates: {list(placemark.geometry.coords)}")
 
 def get_geojson_geometry(file_path):
     
