@@ -8,20 +8,6 @@ import cartopy.crs as _ccrs
 import cartopy.io.shapereader as _shapereader
 import cartopy.feature as _cfeature
 
-from pykml import parser as _parser
-
-def get_kml_geometry(file_path):
-    
-    with open(f"{file_path}") as f:
-        kml_doc = _parser.parse(f)
-        
-    kml_root = kml_doc.get_root()
-    placemarks = kml_root.Document.Placemark
-    
-    for placemark in placemarks:
-        name = placemark.name
-        print(f"Placemark: {name}")
-
 
 def get_geojson_geometry(file_path):
     
@@ -76,7 +62,8 @@ def get_shapefile_geometry(file_path,
 
 
 def convert_shapefile_crs(file_path,
-                          crs='EPSG:4326'):
+                          crs='EPSG:4326',
+                          full_dataset=True):
     
     """
     This function converts the shapefile geometries to a CRS specified by the user using geopandas.
@@ -99,7 +86,10 @@ def convert_shapefile_crs(file_path,
     
     gdf = gdf.to_crs(crs)
     
-    return gdf['geometry']
+    if full_dataset is False:
+        return gdf['geometry']
+    else:
+        return gdf
     
     
 
