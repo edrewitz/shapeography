@@ -54,7 +54,10 @@ def get_shapefiles(url,
     """
     
     if refresh == True:
-        _shutil.rmtree(f"{path}")
+        try:
+            _shutil.rmtree(f"{path}")
+        except Exception as e:
+            pass
     else:
         pass
     
