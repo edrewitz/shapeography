@@ -8,49 +8,20 @@ import cartopy.crs as _ccrs
 import cartopy.io.shapereader as _shapereader
 import cartopy.feature as _cfeature
 
-from fastkml import(
-    kml as _kml, 
-)
-from fastkml.utils import find_all as _find_all
-
-def _parse_kml_features(element):
-    """Recursively yields features from KML elements (Document, Folder, Placemark)"""
-    if not hasattr(element, 'features'):
-        return
-    for feature in element:
-        if isinstance(feature, _kml.Placemark):
-            yield feature
-        else:
-            yield from _parse_kml_features(feature)
-            
-            
-
+from pykml import parser as _parser
 
 def get_kml_geometry(file_path):
     
-    """
-    This function returns the geometry of a KML file.
+    with open(f"{file_path}") as f:
+        kml_doc = _parser.parse(f)
+        
+    kml_root = kml_doc.get_root()
+    placemarks = kml_root.Document.Placemark
     
-    Required Arguments:
-    
-    1) file_path (String) - The path to the KML file
-    
-    Returns
-    -------
-    
-    The geometry of the KML file    
-    """
+    for placemark in placemarks:
+        name = placemark.name
+        print(f"Placemark: {name}")
 
-
-    with open(file_path, 'rb') as f:
-        k = _kml.KML()
-        k.from_string(f.read())
-
-    for placemark in _parse_kml_features(k):
-        print(f"* Name: {placemark.name}")
-        if placemark.geometry:
-            print(f"  Geometry Type: {placemark.geometry.geom_type}")
-            print(f"  Coordinates: {list(placemark.geometry.coords)}")
 
 def get_geojson_geometry(file_path):
     
