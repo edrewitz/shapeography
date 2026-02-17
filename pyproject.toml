@@ -19,7 +19,8 @@ classifiers = [
 dependencies = [
 	"cartopy>=0.24.0",
     "geopandas>=1.1.0",
-    "requests>=2.32.4"
+    "requests>=2.32.4",
+    "fastkml>=1.4.0"
 ]
 
 [build-system]
