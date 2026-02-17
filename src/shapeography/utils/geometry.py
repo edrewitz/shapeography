@@ -61,9 +61,8 @@ def get_shapefile_geometry(file_path,
     return shape_feature
 
 
-def GeoDataFrame(file_path,
-                crs='EPSG:4326',
-                full_dataset=True):
+def polygons(file_path,
+                crs='EPSG:4326'):
     
     """
     This function converts the shapefile geometries to a CRS specified by the user using geopandas.
@@ -86,10 +85,34 @@ def GeoDataFrame(file_path,
     
     gdf = gdf.to_crs(crs)
     
-    if full_dataset is False:
-        return gdf['geometry']
-    else:
-        return gdf
+    return gdf['geometry']
+
+
+def geodataframe(file_path,
+                crs='EPSG:4326'):
+    
+    """
+    This function converts the shapefile geometries to a CRS specified by the user using geopandas.
+    
+    Required Arguments: 
+    
+    1) file_path (String) - The full filepath to the shapefile. 
+    
+    Optional Arguments:
+    
+    1) crs (String) - Default='EPSG:4326' (PlateCarree) - The coordinate reference system the user wants the geometry coordinates in.  
+    
+    Returns
+    -------
+    
+    The geometry of the shapefile in the CRS specified by the user.
+    """
+    
+    gdf = _gpd.read_file(f"{file_path}")
+    
+    gdf = gdf.to_crs(crs)
+    
+    return gdf
     
     
 
