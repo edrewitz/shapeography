@@ -9,7 +9,7 @@ import cartopy.io.shapereader as _shapereader
 import cartopy.feature as _cfeature
 
 from fastkml import(
-    KML as _KML, 
+    kml as _kml, 
     geometry as _kml_geometry
 )
 from fastkml.utils import find_all as _find_all
@@ -35,11 +35,11 @@ def get_kml_geometry(file_path):
         doc = f.read().encode('utf-8')
 
     # Create a KML object and parse the document string
-    k = _KML()
+    k = _kml()
     k.from_string(doc)
 
     # Recursively find all Placemarks in the KML document
-    placemarks = list(_find_all(k, of_type=_KML.Placemark))
+    placemarks = list(_find_all(k, of_type=_kml.Placemark))
 
     # Iterate through placemarks and print their geometry
     for p in placemarks:
