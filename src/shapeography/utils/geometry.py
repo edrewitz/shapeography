@@ -29,9 +29,8 @@ def get_kml_geometry(file_path):
     The geometry of the KML file    
     """
 
-    kml_filename = "your_file.kml"
 
-    with open(kml_filename, 'r', encoding='utf-8') as f:
+    with open(file_path, 'r', encoding='utf-8') as f:
         doc = f.read().encode('utf-8')
 
     k = _kml.KML()
