@@ -1,1 +1,1 @@
-from shapeography.client.client import get_shapefiles
+import shapeography.client.client as client

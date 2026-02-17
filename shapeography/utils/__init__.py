@@ -1,2 +1,2 @@
-from shapeography.utils.geometry import *
-from shapeography.utils.unzip import *
+import shapeography.utils.geometry as geometry
+import shapeography.utils.unzip as unzip

@@ -1,3 +1,4 @@
-from shapeography.client.client import get_shapefiles
-from shapeography.utils.unzip import *
-from shapeography.utils.geometry import *
+import shapeography.utils.geometry as geometry
+import shapeography.utils.unzip as unzip
+import shapeography.client.client as client
+
