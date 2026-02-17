@@ -10,7 +10,6 @@ import cartopy.feature as _cfeature
 
 from fastkml import(
     kml as _kml, 
-    geometry as _kml_geometry
 )
 from fastkml.utils import find_all as _find_all
 
@@ -30,32 +29,34 @@ def get_kml_geometry(file_path):
     The geometry of the KML file    
     """
 
-    # Open and read the KML file content
-    with open(file_path, 'r', encoding='utf-8') as f:
+    kml_filename = "your_file.kml"
+
+    with open(kml_filename, 'r', encoding='utf-8') as f:
         doc = f.read().encode('utf-8')
 
-    # Create a KML object and parse the document string
-    k = _kml()
+    k = _kml.KML()
     k.from_string(doc)
 
-    # Recursively find all Placemarks in the KML document
-    placemarks = list(_find_all(k, of_type=_kml.Placemark))
+    # Iterate through features (Document, Folder, Placemark, etc.)
+    for feature in k.features():
+        if isinstance(feature, _kml.Document):
+            for sub_feature in feature.features():
+                for placemark in sub_feature.features():
+                    if placemark.geometry:
+                        print(f"Geometry type: {type(placemark.geometry).__name__}")
+                        # You can access the coordinates, e.g., for a Point
+                        if hasattr(placemark.geometry, 'coords'):
+                            print(f"Coordinates: {list(placemark.geometry.coords)}")
+                        # For Polygon geometries, you can access the exterior coordinates
+                        elif hasattr(placemark.geometry, 'exterior'):
+                            print(f"Coordinates: {list(placemark.geometry.exterior.coords)}")
 
-    # Iterate through placemarks and print their geometry
-    for p in placemarks:
-        print(f"Placemark Name: {p.name}")
-        if p.geometry:
-            print(f"Geometry Type: {type(p.geometry).__name__}")
-            # The coordinates can be accessed differently depending on the geometry type
-            if isinstance(p.geometry, _kml_geometry.Point):
-                print(f"Coordinates: {p._kml_geometry.coords}")
-            elif isinstance(p.geometry, _kml_geometry.LineString):
-                print(f"Coordinates: {list(p.geometry.coords)}")
-            elif isinstance(p.geometry, _kml_geometry.Polygon):
-                # Coordinates are in the exterior ring for a simple polygon
-                print(f"Coordinates: {list(p.geometry.exterior.coords)}")
-        else:
-            print("No geometry found for this placemark")
+        # Handle cases where placemarks are directly under the KML root or other features
+        elif isinstance(feature, _kml.Placemark):
+            if feature.geometry:
+                print(f"Geometry type: {type(feature.geometry).__name__}")
+                if hasattr(feature.geometry, 'coords'):
+                    print(f"Coordinates: {list(feature.geometry.coords)}")
 
 
 
