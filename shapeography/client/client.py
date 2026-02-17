@@ -1,142 +1,147 @@
 """
 This file hosts the client that retrieves the shapefile from the web.
 
-(C) Eric J. Drewitz 2025
+(C) Eric J. Drewitz 2026
 """
 
-import urllib.request
-import os
-import sys
+import requests as _requests
+import os as _os 
+import time as _time
+import sys as _sys
+import shutil as _shutil
 
-from shapeography.census.urls import get_census_url 
-from shapeography.noaa.urls import get_noaa_url
-from shapeography.usda.urls import get_usda_url
-from shapeography.nifc.urls import get_nifc_url
-from shapeography.calfire.urls import get_calfire_url
-
-from shapeography.census.demarcations import census_demarcations
-from shapeography.noaa.demarcations import noaa_demarcations
-from shapeography.usda.demarcations import usda_demarcations
-from shapeography.nifc.demarcations import nifc_demarcations
-from shapeography.calfire.demarcations import calfire_demarcations
-
-from shapeography.utils.geometry import get_geometry
-from shapeography.utils.unzip import extract_zipped_files
-
-def get_census_borders(demarcation,
-                       resolution,
-                       save_location='default'):
+def get_shapefiles(url,
+             path,
+             filename,
+             proxies=None,
+             chunk_size=8192,
+             notifications='on',
+             refresh=True):
     
     """
-    This function scans for the shapefiles associated with the census demarcations specified by the user.
-    
-    If the shapefiles exist on the local PC in the specified path (save_location), the function will then pass the
-    downloading and unzipping of the files. Otherwise, the client will download and unzip the files and then read the 
-    geometries.
+    This function is the client that retrieves gridded weather/climate data (GRIB2 and NETCDF) files. 
+    This client supports VPN/PROXY connections. 
     
     Required Arguments:
     
-    1) demarcation (String) - The border demarcation.
+    1) url (String) - The download URL to the file. 
     
-    You can find more information regarding census demarcations at:
+    2) path (String) - The directory where the file is saved to. 
     
-    https://www2.census.gov/geo/tiger/GENZ2024/2024_file_name_def.pdf
+    3) filename (String) - The name the user wishes to save the file as. 
     
-    Border Demarcations
-    -------------------
+    Optional Arguments:
     
-    1) 'American Indian Alaska Native Native Hawaiian Areas'
-    2) 'American Indian Tribal Subdivision'
-    3) 'Alaska Native Regional Corporation'
-    4) 'Block Group'
-    5) 'Congressional District (119th Congress)'
-    6) 'Consolidated City'
-    7) 'County'
-    8) 'Portion of county within a congressional district'
-    9) 'County Subdivision'
-    10) 'National Division (Subdivisions of Regions)'
-    11) 'Elementary School District'
-    12) 'Estate subminor civil division (sub-MCD) in U.S. Virgin Islands'
-    13) 'National outline'
-    14) 'Place' 
-    15) 'National Region (Northeast, Southeast, Midwest and West)'  
-    16) 'Secondary School District' 
-    17) 'School District Administrative Area'
-    18) 'State Legislative District Lower Chamber'
-    19) 'State Legislative District Upper Chamber'
-    20) 'State and Equivalent'
-    21) 'Subbarrio Legally defined subdivisions of county'
-    22) 'Tribal Block Group'
-    23) 'Census Tract' 
-    24) 'Tribal Census Tract'
-    25) 'Unified School District'
+    1) proxies (dict or None) - Default=None. If the user is using proxy server(s), the user must change the following:
+
+       proxies=None ---> proxies={
+                           'http':'http://url',
+                           'https':'https://url'
+                        } 
+                        
+    2) chunk_size (Integer) - Default=8192. The size of the chunks when writing the GRIB/NETCDF data to a file.
     
-    2) resolution (String) - The resolution of the borders.
+    3) notifications (String) - Default='on'. Notification when a file is downloaded and saved to {path}
     
-        Resolution
-        ----------
-        1) '500k'
-        2) '5m'
-        3) '20m'
-        
-        Resolution Scale
-        ------------------    
-        o 500k = 1:500,000
-        o 5m = 1:5,000,000
-        o 20m = 1:20,000,000
-     
-    Optional Arguments: 
-    
-    1) save_location (String) - Default='default'. The path specified by the user to save the shapefiles.
-       If 'default' is selected, the shapefiles will be saved to f:demarcation
+    4) clear_recycle_bin (Boolean) - (Default=False in WxData >= 1.2.5) (Default=True in WxData < 1.2.5). When set to True, 
+        the contents in your recycle/trash bin will be deleted with each run of the program you are calling WxData. 
+        This setting is to help preserve memory on the machine. 
     
     Returns
     -------
     
-    The geometries in the shapefile.    
+    Gridded weather/climate data files (GRIB2 or NETCDF) saved to {path}    
     """
     
-    resolutions = ['500k',
-                   '5m',
-                   '20m']
-    
-    if resolution not in resolutions:
-        print(f"Error: User entered an invalid resolution of {resolution}.\nDefaulting to 500k")
-        resolution = '500k'
-        
+    if refresh == True:
+        _shutil.rmtree(f"{path}")
     else:
         pass
     
-    if save_location == 'default':
-        path = f"{demarcation}/{resolution}"
-    else:
-        path = save_location
-        
     try:
-        os.mkdirs(f"{path}")
+        _os.makedirs(f"{path}")
     except Exception as e:
         pass
-    
-    folder = census_demarcations(demarcation,
-                                 resolution)
-    
-    download = False
-    if os.path.exists(f"{path}/{folder}"):
-        if len(os.listdir(f"{path}/{folder}")) == 0:
-            download = True
-        else:
-            pass
+
+    if proxies == None:
+        try:
+            with _requests.get(url, stream=True) as r:
+                r.raise_for_status() 
+                with open(f"{path}/{filename}", 'wb') as f:
+                    for chunk in r.iter_content(chunk_size=chunk_size):
+                        f.write(chunk)
+            if notifications == 'on':
+                print(f"Successfully saved {filename} to f:{path}")
+            else:
+                pass
+        except _requests.exceptions.RequestException as e:
+            for i in range(0, 6, 1):
+                if i < 3:
+                    print(f"Alert: Network connection unstable.\nWaiting 30 seconds then automatically trying again.\nAttempts remaining: {5 - i}")
+                    _time.sleep(30)
+                else:
+                    print(f"Alert: Network connection unstable.\nWaiting 60 seconds then automatically trying again.\nAttempts remaining: {5 - i}")
+                    _time.sleep(60)  
+                    
+                try:
+                    with _requests.get(url, stream=True) as r:
+                        r.raise_for_status() 
+                        with open(f"{path}/{filename}", 'wb') as f:
+                            for chunk in r.iter_content(chunk_size=chunk_size):
+                                f.write(chunk)
+                    if notifications == 'on':
+                        print(f"Successfully saved {filename} to f:{path}")  
+                    break
+                except _requests.exceptions.RequestException as e:
+                    i = i 
+                    if i >= 5:
+                        print(f"Error - File Cannot Be Downloaded.\nError Code: {e}")    
+                        _sys.exit(1)      
+                        
+        finally:
+            if r:
+                r.close() # Ensure the connection is closed.
+            
     else:
-        pass
-        
-    
-    if download == True:
-    
-        url = get_census_url(demarcation,
-                            resolution)
-        
-        urllib.requests.urlretrieve(f"{url}", f"{path}/{folder}")
-        
+        try:
+            with _requests.get(url, stream=True, proxies=proxies) as r:
+                r.raise_for_status() 
+                with open(f"{path}/{filename}", 'wb') as f:
+                    for chunk in r.iter_content(chunk_size=chunk_size):
+                        f.write(chunk)
+            if notifications == 'on':
+                print(f"Successfully saved {filename} to f:{path}")
+            else:
+                pass
+        except _requests.exceptions.RequestException as e:
+            for i in range(0, 6, 1):
+                if i < 3:
+                    print(f"Alert: Network connection unstable.\nWaiting 30 seconds then automatically trying again.\nAttempts remaining: {5 - i}")
+                    _time.sleep(30)
+                else:
+                    print(f"Alert: Network connection unstable.\nWaiting 60 seconds then automatically trying again.\nAttempts remaining: {5 - i}")
+                    _time.sleep(60)  
+                    
+                try:
+                    with _requests.get(url, stream=True, proxies=proxies) as r:
+                        r.raise_for_status() 
+                        with open(f"{path}/{filename}", 'wb') as f:
+                            for chunk in r.iter_content(chunk_size=chunk_size):
+                                f.write(chunk)
+                    if notifications == 'on':
+                        print(f"Successfully saved {filename} to f:{path}")  
+                    break
+                except _requests.exceptions.RequestException as e:
+                    i = i 
+                    if i >= 5:
+                        print(f"Error - File Cannot Be Downloaded.\nError Code: {e}")    
+                        _sys.exit(1)    
+                        
+        finally:
+            if r:
+                r.close() # Ensure the connection is closed.
+
+
     
     
     

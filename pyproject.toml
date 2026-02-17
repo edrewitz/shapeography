@@ -21,5 +21,6 @@ classifiers = [
 ]
 dependencies = [
 	"cartopy>=0.24.0",
-    "geopandas>=1.1.0"
+    "geopandas>=1.1.0",
+    "requests>=2.32.4"
 ]
