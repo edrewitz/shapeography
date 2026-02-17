@@ -61,9 +61,9 @@ def get_shapefile_geometry(file_path,
     return shape_feature
 
 
-def convert_shapefile_crs(file_path,
-                          crs='EPSG:4326',
-                          full_dataset=True):
+def GeoDataFrame(file_path,
+                crs='EPSG:4326',
+                full_dataset=True):
     
     """
     This function converts the shapefile geometries to a CRS specified by the user using geopandas.
