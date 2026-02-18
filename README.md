@@ -5,9 +5,9 @@
 <img src="https://github.com/edrewitz/shapeography/blob/main/Thumbnails/86506Livingston-Rev-Base.jpg?raw=true" width="200" alt="Alt text" /> <img src="https://github.com/edrewitz/WxData/blob/1be590e9a16033974a592d8cf99f3cd521f95e0b/icons/python%20logo.png?raw=true" width="200" alt="Alt text" />
 
 
-[![Conda Recipe](https://img.shields.io/badge/recipe-shapeography-green.svg)](https://anaconda.org/conda-forge/shapeography) [![Conda Version](https://img.shields.io/conda/vn/conda-forge/shapeography.svg)](https://anaconda.org/conda-forge/shapeography) [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/shapeography.svg)](https://anaconda.org/conda-forge/shapeography)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18676844.svg)](https://doi.org/10.5281/zenodo.18676844) ![PyPI](https://img.shields.io/pypi/v/shapeography?label=pypi%20shapeography)
-
+[![Conda Recipe](https://img.shields.io/badge/recipe-shapeography-green.svg)](https://anaconda.org/conda-forge/shapeography) [![Conda Version](https://img.shields.io/conda/vn/conda-forge/shapeography.svg)](https://anaconda.org/conda-forge/shapeography) ![PyPI](https://img.shields.io/pypi/v/shapeography?label=pypi%20shapeography)
+ [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/shapeography.svg)](https://anaconda.org/conda-forge/shapeography) [![Anaconda-Server Badge](https://anaconda.org/conda-forge/shapeography/badges/latest_release_date.svg)](https://anaconda.org/conda-forge/shapeography) [![Anaconda-Server Badge](https://anaconda.org/conda-forge/shapeography/badges/license.svg)](https://anaconda.org/conda-forge/shapeography) [![Anaconda-Server Badge](https://anaconda.org/conda-forge/shapeography/badges/latest_release_relative_date.svg)](https://anaconda.org/conda-forge/shapeography)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18676844.svg)](https://doi.org/10.5281/zenodo.18676844) 
 
 Anaconda Downloads:
 
