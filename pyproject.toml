@@ -12,7 +12,6 @@ keywords = ["cartography", "geography"]
 classifiers = [
     "Programming Language :: Python",
     "Topic :: Scientific/Engineering",
-    "Topic :: Scientific/Engineering :: Georgraphy",
     "Operating System :: OS Independent",
 ]
 
