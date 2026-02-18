@@ -28,3 +28,7 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["src"]  # Look for packages in the src directory
+
+[project.urls]
+Documentation = "https://github.com/edrewitz/shapeography?tab=readme-ov-file#shapeography"
+Repository = "https://github.com/edrewitz/shapeography/tree/main"
