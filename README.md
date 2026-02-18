@@ -8,6 +8,12 @@
 
 An open-source Python package that manages shapefiles and GEOJSON files. 
 
+***Jupyter Lab Examples***
+
+1) [Downloading and Plotting the National Weather Service Public Forecast Zones in Python](https://github.com/edrewitz/shapeography-Jupyter-Lab-Examples/blob/main/nws_public_zones.ipynb)
+2) [Downloading and Plotting the NOAA/NWS Climate Prediction Center 6-10 Day Probabilistic Precipitation Outlook in Python](https://github.com/edrewitz/shapeography-Jupyter-Lab-Examples/blob/main/cpc_outlook.ipynb)
+
+
 ***Client Module***
 
 [Documentation](https://github.com/edrewitz/shapeography/blob/main/Documentation/client.md#client-module)
