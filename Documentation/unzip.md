@@ -15,15 +15,13 @@ Optional Arguments:
 
 1) file_extension (String) - Default='.zip'. - The extension of the zip file. 
 
-    Supported zip file extentions
-    -----------------------------
-        
+    **Supported zip file extentions**
+   
         1) .zip
         2) .gz
         3) .tar.gz
         4) .tar
 
-Returns
--------
+**Returns**
 
 A directory of unzipped shapefiles. 
