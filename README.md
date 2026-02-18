@@ -4,9 +4,41 @@
 
 <img src="https://github.com/edrewitz/shapeography/blob/main/Thumbnails/86506Livingston-Rev-Base.jpg?raw=true" width="200" alt="Alt text" /> <img src="https://github.com/edrewitz/WxData/blob/1be590e9a16033974a592d8cf99f3cd521f95e0b/icons/python%20logo.png?raw=true" width="200" alt="Alt text" />
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18676844.svg)](https://doi.org/10.5281/zenodo.18676844)
+
+
+
 **(C) Eric J. Drewitz 2026**
 
-An open-source Python package that manages shapefiles and GEOJSON files. 
+An open-source Python package that manages shapefiles/GEOJSON files and simplifies the process of working with GIS data in Python.
+
+**How To Install**
+
+Copy and paste either command into your terminal or anaconda prompt:
+
+*Install via Anaconda*
+
+`conda install shapeography`
+
+*Install via pip*
+
+`pip install shapeography`
+
+**How To Update To The Latest Version**
+
+Copy and paste either command into your terminal or anaconda prompt:
+
+*Update via Anaconda*
+
+***This is for users who initially installed WxData through Anaconda***
+
+`conda update shapeography`
+
+*Update via pip*
+
+***This is for users who initially installed WxData through pip***
+
+`pip install --upgrade shapeography`
 
 ***Jupyter Lab Examples***
 
