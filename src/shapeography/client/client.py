@@ -52,7 +52,7 @@ def get_shapefiles(url,
     Returns
     -------
     
-    Gridded weather/climate data files (GRIB2 or NETCDF) saved to {path}    
+    Zipped Shapefile and/or GEOJSON to f:{path}/{filename} 
     """
     
     if refresh == True:
