@@ -43,7 +43,6 @@ Optional Arguments:
    cleaned out and a new set of shapefiles/GEOJSON is downloaded with each run. This is recommended for those using 
    shapeography in automated tasks to account for periodic shapefile/GEOJSON updates on the servers that host the shapefiles/GEOJSONs.
 
-Returns
--------
+**Returns**
 
 Zipped Shapefile and/or GEOJSON to f:{path}/{filename} 
