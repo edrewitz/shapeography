@@ -52,3 +52,8 @@ The current functions are:
 1) [`cartopy_shapefeature()`](https://github.com/edrewitz/shapeography/blob/main/Documentation/geometry.md#1-cartopy_shapefeature) - Returns a cartopy.shapefeature from the data inside the shapefile/GEOJSON.
 2) [`get_geometries()`](https://github.com/edrewitz/shapeography/blob/main/Documentation/geometry.md#2-get_geometries) - Returns a gpd.GeoDataFrame of the geometry data of the shapefile/GEOJSON in the coordinate reference system (CRS) specified by the user. (Default CRS = 'EPSG:4326' --> `ccrs.PlateCarree()`)
 3) [`geodataframe()`](https://github.com/edrewitz/shapeography/blob/main/Documentation/geometry.md#3-geodataframe) - Returns gpd.GeoDataFrame hosting all the data in the shapefile/GEOJSON in the coordinate reference system (CRS) specified by the user. (Default CRS = 'EPSG:4326' --> `ccrs.PlateCarree()`)
+
+# Citations
+
+1) **cartopy**: Phil Elson, Elliott Sales de Andrade, Greg Lucas, Ryan May, Richard Hattersley, Ed Campbell, Andrew Dawson, Bill Little, Stephane Raynaud, scmc72, Alan D. Snow, Ruth Comer, Kevin Donkers, Byron Blay, Peter Killick, Nat Wilson, Patrick Peglar, lgolston, lbdreyer, … Chris Havlin. (2023). SciTools/cartopy: v0.22.0 (v0.22.0). Zenodo. https://doi.org/10.5281/zenodo.8216315
+2) **geopandas**: Kelsey Jordahl, Joris Van den Bossche, Martin Fleischmann, Jacob Wasserman, James McBride, Jeffrey Gerard, … François Leblanc. (2020, July 15). geopandas/geopandas: v0.8.1 (Version v0.8.1). Zenodo. http://doi.org/10.5281/zenodo.3946761
