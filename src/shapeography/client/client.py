@@ -39,6 +39,8 @@ def get_shapefiles(url,
                            'https':'https://url'
                         } 
                         
+        get_shapefiles(url, path, filename, proxies=proxies)
+                        
     2) chunk_size (Integer) - Default=8192. The size of the chunks when writing the GRIB/NETCDF data to a file.
     
     3) notifications (String) - Default='on'. Notification when a file is downloaded and saved to {path}
