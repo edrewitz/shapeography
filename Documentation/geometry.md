@@ -3,7 +3,7 @@
 **Table of Contents**
 
 1) [`cartopy_shapefeature()`](https://github.com/edrewitz/shapeography/blob/main/Documentation/geometry.md#1-cartopy_shapefeature)
-2) [`get_geometries()`](https://github.com/edrewitz/shapeography/new/main/Documentation#2-get_geometries)
+2) [`get_geometries()`](https://github.com/edrewitz/shapeography/blob/main/Documentation/geometry.md#2-get_geometries)
 3) [`geodataframe()`](https://github.com/edrewitz/shapeography/new/main/Documentation#3-geodataframe)
 
 
