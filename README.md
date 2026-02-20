@@ -13,6 +13,11 @@ Anaconda Downloads:
 
 [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/shapeography.svg)](https://anaconda.org/conda-forge/shapeography)
 
+PIP Downloads:
+
+![PyPI - Downloads](https://img.shields.io/pypi/dm/shapeography)
+
+
 
 **(C) Eric J. Drewitz 2026**
 
