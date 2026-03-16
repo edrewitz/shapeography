@@ -19,7 +19,7 @@ def get_shapefiles(url,
              refresh=True):
     
     """
-    This function is the client that downloads and locally manages shapefiles files. 
+    This function is the client that downloads and locally manages shapefiles. 
     This client supports VPN/PROXY connections. 
     
     Required Arguments:
