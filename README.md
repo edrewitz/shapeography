@@ -41,13 +41,13 @@ Copy and paste either command into your terminal or anaconda prompt:
 
 *Update via Anaconda*
 
-***This is for users who initially installed WxData through Anaconda***
+***This is for users who initially installed shapeography through Anaconda***
 
 `conda update shapeography`
 
 *Update via pip*
 
-***This is for users who initially installed WxData through pip***
+***This is for users who initially installed shapeography through pip***
 
 `pip install --upgrade shapeography`
 
