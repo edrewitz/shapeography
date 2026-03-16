@@ -55,13 +55,14 @@ Copy and paste either command into your terminal or anaconda prompt:
 
 1) [Downloading and Plotting the National Weather Service Public Forecast Zones](https://github.com/edrewitz/shapeography-Jupyter-Lab-Examples/blob/main/nws_public_zones.ipynb)
 2) [Downloading and Plotting the NOAA/NWS Climate Prediction Center 6-10 Day Probabilistic Precipitation Outlook](https://github.com/edrewitz/shapeography-Jupyter-Lab-Examples/blob/main/cpc_outlook.ipynb)
+3) [Downloading and Plotting the Bureau of Land Management Unallocated Lands GEOJSON](https://github.com/edrewitz/shapeography-Jupyter-Lab-Examples/blob/main/blm.ipynb)
 
 
 ***Client Module***
 
 [Documentation](https://github.com/edrewitz/shapeography/blob/main/Documentation/client.md#client-module)
 
-The `client` module hosts the client function `get_shapefiles()` that downloads shapefiles/GEOJSON file from a user-defined URL address into a folder locally on your PC.
+The `client` module hosts the client functions `get_shapefiles()` and `get_geojson()` that download shapefiles/GEOJSON file from a user-defined URL address into a folder locally on your PC.
 
 The user must specify the path and filename and the file is saved to {path}/{filename}. 
 
@@ -72,9 +73,9 @@ This client supports users on a VPN/PROXY connection.
     **Proxy Example**
 
     proxies=None ---> proxies={
-                           'http':'address:port',
-                           'https':'address:port'
-                        } 
+                               'http':'http://your-proxy-address:port',
+                               'https':'http://your-proxy-address:port'
+                               }
 
     shapeography.client.get_shapefiles(url, path, filename, proxies=proxies)
 
