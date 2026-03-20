@@ -12,7 +12,8 @@ The shapeography `geometry` module hosts the functions for the following:
 #### 1) `cartopy_shapefeature()` 
 
 ***def cartopy_shapefeature(file_path,
-                           edgecolor='black'):***
+                           edgecolor='black',
+                           crs=_ccrs.PlateCarree()):***
 
 This function extracts the geometries from the shapefile and returns those geometries to the user.
 
@@ -24,9 +25,15 @@ Optional Arguments:
 
 1) edgecolor (String) - Default='black'. The color of the bordr demarcations on the map. 
 
-**Returns**
-
-A cartopy.shapefeature from the data inside the shapefile/GEOJSON.  
+2) crs (cartopy.crs) - Default=ccrs.PlateCarree(). The coordinate reference system of the shape feature. 
+    Most cases, PlateCarree() (lat/lon) is the preferred coordinate reference system. For those who need to
+    use a different coordinate reference system, you will need to import cartopy into your script, define your
+    own coordinate reference system with cartopy.crs and pass the reference system object as crs=crs. Please
+    see cartopy.crs documentation for more information regarding cartopy coordinate reference systems.
+    
+  **Returns**
+    
+A cartopy.shapefeature from the data inside the shapefile.    
 
 #### 2) `get_geometries()`
 
