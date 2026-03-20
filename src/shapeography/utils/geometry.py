@@ -10,7 +10,8 @@ import cartopy.io.shapereader as _shapereader
 import cartopy.feature as _cfeature
 
 def cartopy_shapefeature(file_path,
-                           edgecolor='black'):
+                           edgecolor='black',
+                           crs=_ccrs.PlateCarree()):
     
     """
     This function extracts the geometries from the shapefile and returns those geometries to the user.
@@ -23,14 +24,20 @@ def cartopy_shapefeature(file_path,
     
     1) edgecolor (String) - Default='black'. The color of the bordr demarcations on the map. 
     
+    2) crs (cartopy.crs) - Default=ccrs.PlateCarree(). The coordinate reference system of the shape feature. 
+        Most cases, PlateCarree() (lat/lon) is the preferred coordinate reference system. For those who need to
+        use a different coordinate reference system, you will need to import cartopy into your script, define your
+        own coordinate reference system with cartopy.crs and pass the reference system object as crs=crs. Please
+        see cartopy.crs documentation for more information regarding cartopy coordinate reference systems.
+    
     Returns
     -------
     
-    A cartopy.shapefeature from the data inside the shapefile/GEOJSON.    
+    A cartopy.shapefeature from the data inside the shapefile.    
     """   
     
     shape_feature = _cfeature.ShapelyFeature(_shapereader.Reader(file_path).geometries(),
-                                   crs=_ccrs.PlateCarree(), facecolor=(0,0,0,0), edgecolor=edgecolor)
+                                   crs=crs, facecolor=(0,0,0,0), edgecolor=edgecolor)
     
     return shape_feature
 
