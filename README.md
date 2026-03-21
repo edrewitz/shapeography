@@ -99,7 +99,7 @@ The `geometry` module hosts functions that extract data from these shapefiles/GE
 
 The current functions are: 
 
-1) [`cartopy_shapefeature()`](https://github.com/edrewitz/shapeography/blob/main/Documentation/geometry.md#1-cartopy_shapefeature) - Returns a cartopy.shapefeature from the data inside the shapefile/GEOJSON.
+1) [`cartopy_shapefeature()`](https://github.com/edrewitz/shapeography/blob/main/Documentation/geometry.md#1-cartopy_shapefeature) - Returns a cartopy.shapefeature from the data inside the shapefile in the coordinate reference system (CRS) specified by the user. (Default CRS = `ccrs.PlateCarree()`).
 2) [`get_geometries()`](https://github.com/edrewitz/shapeography/blob/main/Documentation/geometry.md#2-get_geometries) - Returns a gpd.GeoDataFrame of the geometry data of the shapefile/GEOJSON in the coordinate reference system (CRS) specified by the user. (Default CRS = 'EPSG:4326' --> `ccrs.PlateCarree()`)
 3) [`geodataframe()`](https://github.com/edrewitz/shapeography/blob/main/Documentation/geometry.md#3-geodataframe) - Returns gpd.GeoDataFrame hosting all the data in the shapefile/GEOJSON in the coordinate reference system (CRS) specified by the user. (Default CRS = 'EPSG:4326' --> `ccrs.PlateCarree()`)
 
